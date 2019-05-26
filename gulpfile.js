@@ -34,10 +34,16 @@ gulp.task('js', function() {
 	.pipe(browserSync.reload({stream: true}));
 });
 
+gulp.task('html', function () {
+    return gulp
+    .src('app/*.html')
+    .pipe(browserSync.reload({stream: true}));
+});
+
 gulp.task('watch', function() {
 	gulp.watch('app/sass/**/*.sass', gulp.parallel('sass'));
 	gulp.watch(['libs/**/*.js', 'app/js/common.js'], gulp.parallel('js'));
-	gulp.watch('app/*.html', browserSync.reload({stream: true}));
+    gulp.watch('app/*.html', gulp.parallel('html'));
 });
 
-gulp.task('default', gulp.parallel('watch', 'sass', 'js', 'browser-sync'));
+gulp.task('default', gulp.parallel('watch', 'html', 'sass', 'js', 'browser-sync'));
